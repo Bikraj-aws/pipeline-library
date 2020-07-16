@@ -15,7 +15,7 @@ def call(repoName, repoOwner, dockerRegistryDomain, deploymentDomain, gcpProject
         }
         url = "http://${hostPrefix}.${repoOwner}-${repoName}.${deploymentDomain}"
         sh label: "update deployment scripts", script: """
-          sed -i 's#REPLACE_IMAGE#${dockerRegistryDomain}/${repoOwner}/${repoName}:${env.VERSION}#' .kubernetes/frontend.yaml
+          sed -i 's#REPLACE_IMAGE#${dockerRegistryDomain}/${repoOwner}/${repoName}:${env.VERSION.trim()}#' .kubernetes/frontend.yaml
           sed -i 's#REPLACE_HOSTNAME#${hostPrefix}.${repoOwner}-${repoName}.${deploymentDomain}#' .kubernetes/frontend.yaml
           sed -i 's#REPLACE_REPO_OWNER#${repoOwner}-${hostPrefix}#' .kubernetes/frontend.yaml
         """
